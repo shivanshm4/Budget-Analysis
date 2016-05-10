@@ -1,0 +1,43 @@
+from array import array
+def budget():
+    n=int(input("enter the number of persons"))
+    a=array('i')
+    diff=array('i')
+    payer=array('i')
+    reciever=array('i')
+    sum=0
+    i=0
+    amt=0
+    for i in range(0,n):
+        amt=int(input("Enter the amount given by "+str(i+1)+" person"))
+        a.append(amt)
+        sum=sum+(a[i])
+    div=(float)(sum)/n
+    print(str(div))
+    for i in range(0,n,1):
+        diff.append(int(div)-a[i])
+    for i in range(0,n,1):
+        if diff[i]<0:
+            reciever.append(-diff[i])
+            payer.append(0)
+        elif diff[i]>0:
+            payer.append(diff[i])
+            reciever.append(0)
+        else:
+            payer.append(0)
+            reciever.append(0)
+    for i in range(0,n,1):
+        for j in range(1,n,1):
+            if payer[i]!=0 and reciever[j]!=0 and payer[i]>reciever[j] :
+                print("Person "+str(i+1)+" will pay "+str(payer[i]-reciever[j])+" to person "+str(j+1))
+                payer[i]=payer[i]-reciever[j];
+                reciever[j]=0;
+            elif payer[i]!=0 and reciever[j]!=0 and payer[i]==reciever[j] :
+                print("Person "+str(i+1)+" will pay "+str(payer[i])+" to person "+str(j+1))
+                payer[i]=0;
+                reciever[j]=0;
+            elif payer[i]!=0 and reciever[j]!=0 and payer[i]<reciever[j] :
+                print("Person "+str(i+1)+" will pay "+str(reciever[j]-payer[i])+" to person "+str(j+1))
+                reciever[j]=reciever[j]-payer[i]
+                payer[i]=0
+budget()
